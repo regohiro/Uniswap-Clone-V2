@@ -17,24 +17,16 @@ import "hardhat-gas-reporter";
 import "@nomiclabs/hardhat-etherscan";
 
 const chainIds = {
-  ganache: 1337,
-  goerli: 5,
-  hardhat: 31337,
-  kovan: 42,
   mainnet: 1,
   rinkeby: 4,
-  ropsten: 3,
-  bsctestnet: 97,
-  bscmainnet: 56
+  kovan: 42,
+  hardhat: 31337,
 };
 
-var blockchain = "bsc";
 
 const MNEMONIC = process.env.MNEMONIC || "";
-const MNEMONIC_MAINNET = process.env.MNEMONIC_MAINNET || "";
-const BSCSCAN_API_KEY = process.env.BSCSCAN_API_KEY || "";
 const MORALIS_API_KEY = process.env.MORALIS_API_KEY || "";
-
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
@@ -49,16 +41,7 @@ function createNetworkConfig(network: keyof typeof chainIds): NetworkUserConfig 
   let url: string;
   let _mnemonic = MNEMONIC;
 
-  if(network == "bsctestnet" || network == "bscmainnet"){
-    if(network == "bscmainnet"){
-      _mnemonic = MNEMONIC_MAINNET;
-    }
-    blockchain = "bsc";
-    url = "https://" + "speedy-nodes-nyc.moralis.io/" + MORALIS_API_KEY + "/bsc/" + network.substr(3);
-  }else{
-    blockchain = "eth";
-    url = "https://" + "speedy-nodes-nyc.moralis.io/" + MORALIS_API_KEY + "/eth/" + network;
-  }
+  url = "https://" + "speedy-nodes-nyc.moralis.io/" + MORALIS_API_KEY + "/eth/" + network;
 
   return {
     accounts: {
@@ -94,19 +77,15 @@ const config: HardhatUserConfig = {
       },
       chainId: chainIds.hardhat,
       forking: {
-        url: "https://" + "speedy-nodes-nyc.moralis.io/" + MORALIS_API_KEY + "/bsc/mainnet"
+        url: "https://" + "speedy-nodes-nyc.moralis.io/" + MORALIS_API_KEY + "/eth/kovan"
       },
     },
     mainnet: createNetworkConfig("mainnet"),
-    goerli: createNetworkConfig("goerli"),
     kovan: createNetworkConfig("kovan"),
     rinkeby: createNetworkConfig("rinkeby"),
-    ropsten: createNetworkConfig("ropsten"),
-    bsctestnet: createNetworkConfig("bsctestnet"),
-    bscmainnet: createNetworkConfig("bscmainnet"),
   },
   etherscan: {
-    apiKey: BSCSCAN_API_KEY
+    apiKey: ETHERSCAN_API_KEY
   },
   gasReporter: {
     currency: "USD",
