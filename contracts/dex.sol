@@ -63,6 +63,7 @@ contract Dex is Ownable{
   }
 
   function withdrawEth(uint256 _amount) external onlyOwner {
+    require(_amount >= address(this).balance, "Dex: Insufficient Eth balance");
     (bool success, ) = payable(msg.sender).call{value: _amount}("");
     require(success, "Dex: ETH transfer unsuccessful!");
     emit Withdraw(address(0), _amount);
