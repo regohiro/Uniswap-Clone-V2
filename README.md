@@ -16,15 +16,15 @@ Compile the smart contracts with Hardhat:
 $ yarn compile
 ```
 
-### Deploy contract to a live network + validate to bscscan
+### Deploy contract to a live network + validate to etherscan
 
 Note: requires mnemonic and Moralis API key
 
 ```
-$ npx hardhat run scripts/token-deploy.ts --network bsctestnet
+$ npx hardhat run scripts/token-deploy.ts --network kovan
 ```
 
-### Test contract locally (BSC mainnet fork)
+### Test contract locally (Kovan mainnet fork)
 
 Note: requires Moralis API key
 
@@ -32,10 +32,10 @@ Note: requires Moralis API key
 $ yarn test
 ```
 
-### Rebuild contracts
+### Recompile contracts and regenerate types
 
 Note: May need to give permission
 
 ```
-$ ./rebuild.sh
+$ yarn rebuild
 ```
