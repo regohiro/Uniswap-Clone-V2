@@ -3,17 +3,18 @@ import { ethers, waffle } from "hardhat";
 import { Signer } from "ethers";
 import { delay } from "./time";
 import { fromMin, fromSec } from "./formatter";
+import { Contract } from "@ethersproject/contracts"
 const hre = require("hardhat");
 
 //Signer of contract
 export let signer: Signer;
-export const setDefaultSigner = (signerInput: Signer) => {
+export const setDefaultSigner = (signerInput: Signer): void => {
   signer = signerInput;
 };
 
 //Set contract log true or false
 export let liveNetwork = false;
-export const deployToLiveNetwork = () => {
+export const deployToLiveNetwork = (): void => {
   liveNetwork = true;
 };
 
@@ -29,7 +30,7 @@ export let contractAddr: LooseObject = {};
  * @param contractName The EXACT name of the contract
  * @param newAddr (optional) Use this if you want to get the contract that is not stored in the json file
  */
-export const getContractInstance = async (contractName: string, ...newAddr: string[]) => {
+export const getContractInstance = async (contractName: string, ...newAddr: string[]): Promise<Contract> => {
   const Contract = await ethers.getContractFactory(contractName);
   const rawdata = fs.readFileSync("./utilities/contractAddr.json");
   const addresses = JSON.parse(rawdata.toString());
@@ -47,7 +48,7 @@ interface ConstructorArgs {
 export let constructorArgs: ConstructorArgs[] = new Array();
 
 //Contract deployer. Must define signer before use
-export const deployer = async (contractName: string, ...param: any[]) => {
+export const deployer = async (contractName: string, ...param: any[]): Promise<Contract> => {
   const input = param;
   const contractFactory = await ethers.getContractFactory(contractName, signer);
   const contract = await contractFactory.deploy(...input);
@@ -82,7 +83,7 @@ export const deployer = async (contractName: string, ...param: any[]) => {
   return contract;
 };
 
-export const verify = async () => {
+export const verify = async (): Promise<void> => {
   console.log(`***********************************`);
   console.log(`Begin verification...`);
   console.log(`(This will take some time. You can already interact with contract while you wait.)`);
