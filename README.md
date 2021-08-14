@@ -8,6 +8,12 @@ Before running any command, make sure to install dependencies:
 $ yarn 
 ```
 
+Before deploying to a live network or run test, make sure to fill environment variables: 
+
+```
+$ cp .env.example .env
+```
+
 ### Compile
 
 Compile the smart contracts with Hardhat:
