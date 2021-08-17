@@ -32,7 +32,7 @@ export let contractAddr: LooseObject = {};
  */
 export const getContractInstance = async (contractName: string, ...newAddr: string[]): Promise<Contract> => {
   const Contract = await ethers.getContractFactory(contractName);
-  const rawdata = fs.readFileSync("./utilities/contractAddr.json");
+  const rawdata = fs.readFileSync("./utils/contractAddr.json");
   const addresses = JSON.parse(rawdata.toString());
 
   const contractAddress = newAddr.length == 0 ? addresses[contractName] : newAddr[0];
@@ -71,7 +71,7 @@ export const deployer = async (contractName: string, ...param: any[]): Promise<C
     //Save contract address to json file.
     contractAddr[contractName] = contract.address;
     const data = JSON.stringify(contractAddr, null, 2);
-    fs.writeFileSync("./utilities/contractAddr.json", data);
+    fs.writeFileSync("./utils/contractAddr.json", data);
 
     //Save constructor args
     constructorArgs.push({
