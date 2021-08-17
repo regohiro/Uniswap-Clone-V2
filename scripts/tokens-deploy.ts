@@ -1,9 +1,8 @@
-
 import { ethers } from "hardhat";
 import { verify, deployToLiveNetwork, setDefaultSigner, deployer, toWei } from '../utils';
  
 async function main() {
-  //When called, it will print receipt and verify to BscScan
+  //When called, it will print receipt and verify to Etherscan
   deployToLiveNetwork();
 
   //Set contract signer (owner)
