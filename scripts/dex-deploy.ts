@@ -1,10 +1,10 @@
-import { Uni } from './../typechain/Uni.d';
-import { Link } from './../typechain/Link.d';
-import { Dai } from './../typechain/Dai.d';
+import { Uni } from "./../typechain/Uni.d";
+import { Link } from "./../typechain/Link.d";
+import { Dai } from "./../typechain/Dai.d";
 
 import { ethers } from "hardhat";
-import { verify, deployToLiveNetwork, setDefaultSigner, deployer, getContractInstance } from '../utils';
- 
+import { verify, deployToLiveNetwork, setDefaultSigner, deployer, getContractInstance } from "../utils";
+
 async function main() {
   //When called, it will print receipt and verify to Etherscan
   deployToLiveNetwork();
@@ -15,9 +15,9 @@ async function main() {
   setDefaultSigner(owner);
 
   //Get token contract instance
-  const dai = await getContractInstance("Dai") as Dai;
-  const link = await getContractInstance("Link") as Link;
-  const uni = await getContractInstance("Uni") as Uni;
+  const dai = (await getContractInstance("Dai")) as Dai;
+  const link = (await getContractInstance("Link")) as Link;
+  const uni = (await getContractInstance("Uni")) as Uni;
 
   //Set dex contract args
   const tokenAddr = [dai.address, link.address, uni.address];

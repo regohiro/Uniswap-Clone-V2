@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
-import { verify, deployToLiveNetwork, setDefaultSigner, deployer, toWei } from '../utils';
- 
+import { verify, deployToLiveNetwork, setDefaultSigner, deployer, toWei } from "../utils";
+
 async function main() {
   //When called, it will print receipt and verify to Etherscan
   deployToLiveNetwork();
@@ -10,15 +10,10 @@ async function main() {
   const owner = signers[0];
   setDefaultSigner(owner);
 
-  //Set Token contract args
-  const daiTotalSupply = toWei(10**10);
-  const linkTotalSupply = toWei(10**8);
-  const uniTotalSupply = toWei(10**8)
-
   //Deploy token contracts
-  await deployer("Dai", daiTotalSupply);
-  await deployer("Link", linkTotalSupply);
-  await deployer("Uni", uniTotalSupply);
+  await deployer("Dai");
+  await deployer("Link");
+  await deployer("Uni");
 }
 
 //Excute deploy
