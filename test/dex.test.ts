@@ -32,8 +32,6 @@ describe("Dex test", () => {
   let uni: Uni;
   let dex: Dex;
 
-  const totalSupply = toWei(10 ** 10);
-
   before(async () => {
     //Set accounts
     users = await ethers.getSigners();
@@ -60,9 +58,13 @@ describe("Dex test", () => {
     dex = (await deployer("Dex", tokenAddr, tokenPriceAddr)) as Dex;
 
     //Transfer token to dex
-    await dai.transfer(dex.address, totalSupply);
-    await link.transfer(dex.address, totalSupply);
-    await uni.transfer(dex.address, totalSupply);
+    const daiTransferAmount = await dai.totalSupply();
+    const linkTransferAmount = await link.totalSupply();
+    const uniTransferAmount = await uni.totalSupply();
+
+    await dai.transfer(dex.address, daiTransferAmount);
+    await link.transfer(dex.address, linkTransferAmount);
+    await uni.transfer(dex.address, uniTransferAmount);
   });
 
   describe("Basic token test", () => {
