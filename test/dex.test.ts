@@ -46,9 +46,9 @@ describe("Dex test", () => {
     setDefaultSigner(owner);
 
     //Deploy token contracts
-    dai = (await deployer("Dai", totalSupply)) as Dai;
-    link = (await deployer("Link", totalSupply)) as Link;
-    uni = (await deployer("Uni", totalSupply)) as Uni;
+    dai = (await deployer("Dai")) as Dai;
+    link = (await deployer("Link")) as Link;
+    uni = (await deployer("Uni")) as Uni;
 
     //Deploy dex contract
     const tokenAddr = [dai.address, link.address, uni.address];
